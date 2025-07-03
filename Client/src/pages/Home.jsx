@@ -4,6 +4,7 @@ import BgSlider from '../components/BgSlider'
 import Testiminials from '../components/Testimonials'
 import Upload from '../components/Upload'
 
+
 const Home = () => {
   return (
     <div>
@@ -12,6 +13,7 @@ const Home = () => {
       <BgSlider/>
       <Testiminials/>
       <Upload/>
+     
     </div>
   )
 }
