@@ -1,8 +1,8 @@
-import React from 'react'
 import Header from '../components/Header'
 import Steps from '../components/Steps'
 import BgSlider from '../components/BgSlider'
-import Testiminials from '../components/Testiminials'
+import Testiminials from '../components/Testimonials'
+import Upload from '../components/Upload'
 
 const Home = () => {
   return (
@@ -11,6 +11,7 @@ const Home = () => {
       <Steps/>
       <BgSlider/>
       <Testiminials/>
+      <Upload/>
     </div>
   )
 }

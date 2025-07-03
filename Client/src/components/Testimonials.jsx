@@ -1,7 +1,7 @@
 import React from 'react'
 import { testimonialsData } from '../assets/assets'
 
-const Testiminials = () => {
+const Testimonials = () => {
   return (
     <div>
       <h1 className='mb-12 sm:mb-20 text-center text-2xl  md:text-3xl  lg:text-4xl mt-4 font-semibold bg-gradient-to-r from-gray-900 to-gray-400 bg-clip-text text-transparent py-5'>Customer Testimonials</h1>
@@ -24,4 +24,4 @@ const Testiminials = () => {
   )
 }
 
-export default Testiminials
+export default Testimonials
