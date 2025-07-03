@@ -16,6 +16,7 @@ const BgSlider = () => {
         <img src={assets.image_w_bg} style={{clipPath:`inset(0 ${100.2 -sliderPosition}% 0 0)`}} alt="" className='rounded-xl'/>
         <img src={assets.image_wo_bg}style={{clipPath:`inset(0 0 0 ${sliderPosition}%)`}} className='absolute top-0 left-0 w-full h-full'/>
         <input className='absolute  top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full z-10 cursor-pointer slider' type="range" min={0} max={100} value={sliderPosition} onChange={handleSliderChange}/>
+  
       </div>
     </div>
   )
