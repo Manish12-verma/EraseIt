@@ -28,11 +28,8 @@ const clerkWebhooks = async (req, res) => {
                         photo:data.image_url
                     }
                      await userModel.create(userData);
-                     console.log("✅ User saved:", createdUser);
-                        res.json({
-                            success: true,
-                            message: "User created successfully"
-                        });
+                     console.log("✅ User saved:");
+                        res.json({ });
                       
                      break;
                 }
@@ -49,10 +46,7 @@ const clerkWebhooks = async (req, res) => {
                         clerkId:data.id
                     },userData)
 
-                    res.json({
-                        success: true,
-                        message: "User updated successfully"
-                    });
+                    res.json({});
 
                      break;
                 }
@@ -62,10 +56,7 @@ const clerkWebhooks = async (req, res) => {
                         clerkId:data.id  
                     })
 
-                    res.json({
-                        success: true,
-                        message: "User deleted successfully"
-                    });
+                    res.json({});
 
                      break;
                 }
@@ -79,7 +70,7 @@ const clerkWebhooks = async (req, res) => {
          console.log(error.message)
          res.json({
             success: false,
-            message: "Invalid webhook signature"
+            message: error.message || "Internal Server Error"
         });
       }
 }
