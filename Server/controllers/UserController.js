@@ -14,8 +14,10 @@ const clerkWebhooks = async (req, res) => {
               "svix-timestamp": req.headers["svix-timestamp"],
               "svix-signature": req.headers["svix-signature"]
             });
-
+            
+            console.log("✅ Webhook verified successfully");
             const {data,type} = req.body;
+            console.log("Received webhook data:", data);
 
             switch(type){
                 case "user.created":{
@@ -60,8 +62,7 @@ const clerkWebhooks = async (req, res) => {
 
                      break;
                 }
-                  
-
+                
                 default:
                     break;
             }
