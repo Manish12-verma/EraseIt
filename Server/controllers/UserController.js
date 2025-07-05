@@ -19,7 +19,7 @@ const clerkWebhooks = async (req, res) => {
 
             switch(type){
                 case "user.created":{
-                     
+                     console.log("Handling user.created...");
                     const userData = {
                         clerkId: data.id,
                         email: data.email_addresses[0].email_address,
@@ -28,11 +28,12 @@ const clerkWebhooks = async (req, res) => {
                         photo:data.image_url
                     }
                      await userModel.create(userData);
+                     console.log("✅ User saved:", createdUser);
                         res.json({
                             success: true,
                             message: "User created successfully"
                         });
-
+                      
                      break;
                 }
                 case "user.updated":{
@@ -74,6 +75,7 @@ const clerkWebhooks = async (req, res) => {
                     break;
             }
       } catch (error) {
+         console.error("🔥 ERROR in webhook handler:", error);
          console.log(error.message)
          res.json({
             success: false,
