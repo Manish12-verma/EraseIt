@@ -18,10 +18,9 @@ app.use(cors());
 
 
 
-
 //Api
 app.get('/', (req, res) => res.send('Hello from EraseIt Server'));
-app.use('api/user',userRouter)
+app.use('/api/user',userRouter)
 
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
  
