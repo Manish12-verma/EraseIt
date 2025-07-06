@@ -162,4 +162,41 @@ const paymentRazorpay = async (req, res) => {
   }
 };
 
-export { clerkWebhooks, userCredits,paymentRazorpay };
+//API controller function to handle Razorpay payment success->verification
+
+const verifyRazorpay = async(req,res)=>{
+    try {
+        const {razorpay_order_id} = req.body;
+
+        const orderInfo = await razorpayGateway.orders.fetch(razorpay_order_id);
+        if (orderInfo.status === "paid") {
+            const transactionData = await transactionModel.findById(orderInfo.receipt );
+            if(transactionData.payment){
+                return res.json({ success: false, message: "Payment failed" });
+            }
+
+            //Adding credits to user
+            const userData = await userModel.findOne({ clerkId: transactionData.clerkId });
+            if (!userData) {
+                return res.json({ success: false, message: "User not found" });
+            }
+             
+          const creditBalance = userData.creditBalance || 0 + transactionData.credits;
+          await userModel.findOneAndUpdate(userData._id, { creditBalance });
+
+          //Updating transaction as paid
+          await transactionModel.findByIdAndUpdate(transactionData._id, { payment: true });
+          return res.json({ success: true, message: "Payment successful" });
+            
+        }
+        return res.json({ success: false, message: "Payment failed" });
+
+    } catch (error) {
+       console.log("Error verifying Razorpay payment:", error.message);
+         return res.json({ success: false, message:error.message});  
+    } 
+}
+
+
+
+export { clerkWebhooks, userCredits,paymentRazorpay , verifyRazorpay };
