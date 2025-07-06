@@ -24,6 +24,27 @@ const BuyCredit = () => {
       receipt: order.receipt,
       handler: async (response) => {
         console.log("Payment response:", response);
+
+        const token = await getToken();
+
+        try {
+
+          const { data } = await axios.post(`${backendUrl}/api/user/verify-razor`, response,{
+            headers:{
+              token
+            }
+          })
+
+          if (data.success) {
+            loadCreditsData();
+            navigate("/");
+            toast.success("Credits Added!");
+          }
+
+        } catch (error) {
+          console.error("Payment verification failed:", error);
+          toast.error(error.message);
+        }
       },
     };
 
