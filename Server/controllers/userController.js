@@ -1,6 +1,7 @@
 import userModel from "../models/userModel.js";
 import { Webhook } from "svix";
-
+import razorpay from "razorpay";
+import transactionModel from "../models/transactionModel.js";
 
 //API controller functions to manage clerk user with database
 //http://localhost:4000/api/user/webhooks
@@ -88,5 +89,77 @@ const userCredits = async (req, res) => {
       }
 }
 
+//gateway initialization
+const razorpayGateway = new razorpay({
+    key_id: process.env.RAZORPAY_KEY_ID,
+    key_secret: process.env.RAZORPAY_KEY_SECRET,
+});
 
-export { clerkWebhooks, userCredits };
+//API controller function to create a new order for user credits
+
+const paymentRazorpay = async (req, res) => {
+  try {
+    const { clerkId, planId } = req.body;
+
+
+    const userData = await userModel.findOne({ clerkId });
+
+
+    if (!userData || !planId) {
+      return res.json({ success: false, message: "Invalid credentials" });
+    }
+
+    let credits, plan, amount, date;
+
+    switch (planId) {
+      case "Basic":
+        plan = "Basic";
+        credits = 100;
+        amount = 10;
+        break;
+      case "Advanced":
+        plan = "Advanced";
+        credits = 500;
+        amount = 50;
+        break;
+      case "Business":
+        plan = "Business";
+        credits = 5000;
+        amount = 250;
+        break;
+      default:
+        return res.json({ success: false, message: "Invalid plan" });
+    }
+
+    date = Date.now();
+
+    const transactionData = {
+      clerkId,
+      plan,
+      amount,
+      credits,
+      date,
+    };
+
+
+    const newTransaction = await transactionModel.create(transactionData);
+
+
+    const options = {
+      amount: amount * 100,
+      currency: process.env.CURRENCY || "INR",
+      receipt: newTransaction._id.toString(),
+    };
+
+    const order = await razorpayGateway.orders.create(options);
+
+    return res.json({ success: true, order });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: error?.error?.description || error.message || "Unknown error",
+    });
+  }
+};
+
+export { clerkWebhooks, userCredits,paymentRazorpay };
