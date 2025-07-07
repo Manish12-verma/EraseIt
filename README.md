@@ -2,6 +2,20 @@
 
 EraseIt is a modern web application that automatically removes backgrounds from images using ClipDrop's third-party API. Built with React, Node.js, and integrated with Clerk for authentication and Razorpay for payments.
 
+- **Landing Page**
+
+![Landing Page](Client\public\landing_page.png)
+
+- **Result Page**
+
+![Result Page](Client\public\result.png)
+
+- **Buy Credit Page** 
+
+![Result Page](Client\public\buy.png)
+
+[Click Here to view Live Project](https://erase-it-vw2d.vercel.app/)
+
 ## Features
 
 -  Automatic background removal using ClipDrop third-party API
