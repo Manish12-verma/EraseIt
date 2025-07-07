@@ -4,15 +4,15 @@ EraseIt is a modern web application that automatically removes backgrounds from 
 
 - **Landing Page**
 
-![Landing Page](Client\public\landing_page.png)
+![Landing Page](./Client/public/landing_page.png)
 
 - **Result Page**
 
-![Result Page](Client\public\result.png)
+![Result Page](./Client/public/result.png)
 
 - **Buy Credit Page** 
 
-![Result Page](Client\public\buy.png)
+![Buy Credit Page](./Client/public/buy.png)
 
 [Click Here to view Live Project](https://erase-it-vw2d.vercel.app/)
 
